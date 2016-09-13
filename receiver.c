@@ -13,7 +13,7 @@
 
 void *ReceiveMessage(void *shStruct) {
     srand(time(NULL) + pthread_self());
-    sleep(rand() % 10);
+    sleep(rand() % 3);
     struct threadStruct *sharedStr = (struct threadStruct *) shStruct;
     int counter = 0;
     char *message;
@@ -21,13 +21,13 @@ void *ReceiveMessage(void *shStruct) {
     for (; ;) {
         if ((message = get(sharedStr)) == NULL) {
             fprintf(stderr, "get() failed\n");
-            pthread_cond_wait(&sharedStr->cond, &sharedStr->mutex);
+            sleep(1);
             continue;
         }
         counter++;
         printf("Message received! ID=%d Counter=%d %s\n", (int) pthread_self(), counter, message);
 
-        free(message);
+        //free(message);
         sleep((rand() % MAXSLEEPTIME) + 1);
     }
 }

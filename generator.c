@@ -17,11 +17,16 @@ void *GenerateMessage(void *shStruct) {
     struct threadStruct *sharedStr = (struct threadStruct *) shStruct;
     int length;
     char message[MAXSTRINGSIZE];
-    srand(time(NULL) + pthread_self());
+
     for (; ;) {
+        srand(time(NULL) + pthread_self());
         length = (rand() % MAXSTRINGSIZE) + 1;
-        for (int i = 0; i < length; i++) {
+        /*for (int i = 0; i < length; i++) {
             message[i] = 65 + (rand() % 57);
+        }*/
+        int letter = rand() % 57;
+        for (int i = 0; i < length; i++) {
+            message[i] = 65 + letter;
         }
         message[length] = '\0';
 
@@ -30,10 +35,10 @@ void *GenerateMessage(void *shStruct) {
             sleep(1);
             continue;
         }
-        if (sharedStr->count == 1) {
+        //if (sharedStr->count == 1) {
             pthread_cond_signal(&sharedStr->cond);
-        }
-        printf("Message sent\n");
+        //}
+        printf("Message sent! %s\n", message);
         sleep((rand() % MAXSLEEPTIME) + 1);
     }
 }

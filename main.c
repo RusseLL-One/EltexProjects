@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     pthread_create(&sharedStr.SndrThreadID[0], NULL, GenerateMessage, &sharedStr);
     pthread_create(&sharedStr.RecvThreadID[0], NULL, ReceiveMessage, &sharedStr);
     pthread_create(&sharedStr.RecvThreadID[1], NULL, ReceiveMessage, &sharedStr);
-    //pthread_create(&sharedStr.RecvThreadID[2], NULL, ReceiveMessage, &sharedStr);
+    pthread_create(&sharedStr.RecvThreadID[2], NULL, ReceiveMessage, &sharedStr);
 
     sleep(100);
     return 0;
