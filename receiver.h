@@ -5,6 +5,8 @@
 #ifndef FIRSTTASK_RECEIVER_H
 #define FIRSTTASK_RECEIVER_H
 
+#define MAXSLEEPTIME 5
+
 void *ReceiveMessage(void *shStruct);
 
 #endif //FIRSTTASK_RECEIVER_H

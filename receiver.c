@@ -1,44 +1,33 @@
 //
 // Created by russell on 12.09.16.
 //
-
-#include <sys/msg.h>
+#include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <stdlib.h>
+
 #include "receiver.h"
 #include "mutex.h"
-
-#define MAXSTRINGSIZE 250
-
-struct mesStruct {
-    long mesType;
-    char message[MAXSTRINGSIZE];
-};
+#include "queue.h"
 
 void *ReceiveMessage(void *shStruct) {
-    // key_t key = 21;
-    struct threadStruct sharedStruct = *(struct threadStruct *) shStruct;
+    srand(time(NULL) + pthread_self());
+    sleep(rand() % 10);
+    struct threadStruct *sharedStr = (struct threadStruct *) shStruct;
     int counter = 0;
-    struct mesStruct mesBuf;
-    int msqID = sharedStruct.msqID;
-    /*if ((msqID = msgget(key, 0666)) < 0) {
-        perror("msgget");
-        return;
-    }*/
-    for (; ;) {
-        //pthread_mutex_lock(&sharedStruct.mutex);
-        if (msgrcv(msqID, &mesBuf, MAXSTRINGSIZE, 1, 0) < 0) {
-            perror("msgrcv");
-            //    pthread_mutex_unlock(&sharedStruct.mutex);
-            return -1;
-        }
-        // pthread_mutex_unlock(&sharedStruct.mutex);
-        counter++;
-        printf("Message received! Counter=%d\n", counter);
+    char *message;
 
-        sleep(1);
-        /*srand(time(NULL));
-        sleep((rand() % MAXSLEEPTIME) + 1);*/
+    for (; ;) {
+        if ((message = get(sharedStr)) == NULL) {
+            fprintf(stderr, "get() failed\n");
+            pthread_cond_wait(&sharedStr->cond, &sharedStr->mutex);
+            continue;
+        }
+        counter++;
+        printf("Message received! ID=%d Counter=%d %s\n", (int) pthread_self(), counter, message);
+
+        free(message);
+        sleep((rand() % MAXSLEEPTIME) + 1);
     }
 }
