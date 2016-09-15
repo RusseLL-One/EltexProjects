@@ -6,9 +6,10 @@
 #define FIRSTTASK_QUEUE_H
 
 #define QUEUE_SIZE 15
+#define MAXSTRINGSIZE 70
 
-int put(threadStr *sharedStr, char *elem);
+int put(char *elem);
 
-char *get(threadStr *sharedStr);
+char *get();
 
 #endif //FIRSTTASK_QUEUE_H

@@ -6,8 +6,8 @@
 #define FIRSTTASK_GENERATOR_H
 
 #define MAXSTRINGSIZE 70
-#define MAXSLEEPTIME 5
+#define MAXSLEEPTIME 3
 
-void *GenerateMessage(void *shStruct);
+void *GenerateMessage();
 
 #endif //FIRSTTASK_GENERATOR_H

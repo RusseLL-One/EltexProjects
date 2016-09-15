@@ -7,13 +7,10 @@
 #include <time.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <signal.h>
 #include "generator.h"
-#include "mutex.h"
 #include "queue.h"
 
-void *GenerateMessage(void *shStruct) {
-    struct threadStruct *sharedStr = (struct threadStruct *) shStruct;
+void *GenerateMessage() {
     int length;
     char message[MAXSTRINGSIZE];
 
@@ -29,13 +26,11 @@ void *GenerateMessage(void *shStruct) {
         }*/
         message[length] = '\0';
 
-        if (put(sharedStr, message) < 0) {
+        if (put(message) < 0) {
             fprintf(stderr, "put() failed\n");
             sleep(1);
             continue;
         }
-        printf("Message sent! %s\n", message);
-        for (int i = 0; i < sharedStr->count; i++) printf("%d: %s\n", i + 1, sharedStr->queue[i]);
 
         sleep((rand() % MAXSLEEPTIME) + 1);
     }

@@ -7,18 +7,16 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include "receiver.h"
-#include "mutex.h"
 #include "queue.h"
 
-void *ReceiveMessage(void *shStruct) {
+void *ReceiveMessage() {
     srand(time(NULL) + pthread_self());
     sleep(rand() % 3);
-    struct threadStruct *sharedStr = (struct threadStruct *) shStruct;
     int counter = 0;
     char *message;
 
     for (; ;) {
-        if ((message = get(sharedStr)) == NULL) {
+        if ((message = get()) == NULL) {
             fprintf(stderr, "get() failed\n");
             sleep(1);
             continue;
