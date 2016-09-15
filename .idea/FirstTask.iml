@@ -9,7 +9,6 @@
       <sourceFolder url="file://$MODULE_DIR$/main.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/queue.c" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/generator.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/mutex.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/receiver.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />

@@ -11,8 +11,6 @@ struct { // Mutex для синхронизации очереди
     pthread_mutex_t mutex;
     pthread_cond_t recvCond;
     pthread_cond_t sndrCond;
-    pthread_t sndrThreadID[15];
-    pthread_t recvThreadID[15];
     char queue[QUEUE_SIZE][MAXSTRINGSIZE];
     int count;
 } sharedStr = {
