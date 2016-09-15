@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <stdlib.h>
-
 #include "receiver.h"
 #include "mutex.h"
 #include "queue.h"
@@ -25,9 +24,9 @@ void *ReceiveMessage(void *shStruct) {
             continue;
         }
         counter++;
-        printf("Message received! ID=%d Counter=%d %s\n", (int) pthread_self(), counter, message);
 
-        //free(message);
+        printf("Message received! ID=%d Counter=%d %s\n", (int) abs(pthread_self()) % 10, counter, message);
+        free(message);
         sleep((rand() % MAXSLEEPTIME) + 1);
     }
 }
