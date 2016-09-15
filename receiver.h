@@ -7,6 +7,6 @@
 
 #define MAXSLEEPTIME 10
 
-void *ReceiveMessage();
+void *ReceiveMessage(void *thrStr);
 
 #endif //FIRSTTASK_RECEIVER_H

@@ -8,8 +8,16 @@
 #define QUEUE_SIZE 15
 #define MAXSTRINGSIZE 70
 
-int put(char *elem);
+typedef struct { // Mutex для синхронизации очереди
+    pthread_mutex_t mutex;
+    pthread_cond_t recvCond;
+    pthread_cond_t sndrCond;
+    char queue[QUEUE_SIZE][MAXSTRINGSIZE];
+    int count;
+} threadStr;
 
-char *get();
+int put(threadStr *sharedStr, char *elem);
+
+char *get(threadStr *sharedStr);
 
 #endif //FIRSTTASK_QUEUE_H

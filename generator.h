@@ -8,6 +8,6 @@
 #define MAXSTRINGSIZE 70
 #define MAXSLEEPTIME 3
 
-void *GenerateMessage();
+void *GenerateMessage(void *thrStr);
 
 #endif //FIRSTTASK_GENERATOR_H
